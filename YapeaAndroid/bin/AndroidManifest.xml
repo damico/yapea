@@ -22,6 +22,30 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="org.jdamico.yapea.ConfigActivity"
+            android:label="@string/title_activity_config" >
+        </activity>
+        <activity
+            android:name="org.jdamico.yapea.YapeaConfigActivity"
+            android:label="@string/title_activity_yapea_config" >
+        </activity>
+        <activity
+            android:name="org.jdamico.yapea.YapeaAuthActivity"
+            android:label="@string/title_activity_yapea_auth" >
+        </activity>
+        <activity
+            android:name="org.jdamico.yapea.ImageListActivity"
+            android:label="@string/title_image_list" >
+        </activity>
+        <activity
+            android:name="org.jdamico.yapea.ImageDetailActivity"
+            android:label="@string/title_image_detail"
+            android:parentActivityName=".ImageListActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ImageListActivity" />
+        </activity>
     </application>
 
 </manifest>
