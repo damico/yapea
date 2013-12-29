@@ -1,6 +1,8 @@
 package org.jdamico.yapea;
 
+import org.jdamico.yapea.commons.StaticObj;
 import org.jdamico.yapea.commons.Utils;
+import org.jdamico.yapea.commons.YapeaException;
 import org.jdamico.yapea.dataobjects.ConfigObj;
 
 import android.app.Activity;
@@ -11,6 +13,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class YapeaMainActivity extends Activity {
 	
@@ -18,6 +21,7 @@ public class YapeaMainActivity extends Activity {
 	Button gallery_button = null;
 	Button config_button = null;
 	Boolean isConfigExistent = false;
+	TextView chachedMemTv = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -29,15 +33,27 @@ public class YapeaMainActivity extends Activity {
 		cam_button = (Button) findViewById(R.id.cam_button);
 		gallery_button = (Button) findViewById(R.id.gallery_button);
 		config_button = (Button) findViewById(R.id.config_button);
-		
+		chachedMemTv = (TextView) findViewById(R.id.mem_key_textView);
 		
 		
 		Context context = getApplicationContext();
-		ConfigObj config = Utils.getInstance().getConfigFile(context);
+		ConfigObj config = null;
+		try {
+			config = Utils.getInstance().getConfigFile(context);
+		} catch (YapeaException e) {
+			e.printStackTrace();
+		}
 		if(null == config){
 			cam_button.setEnabled(false);
-			//cam_button.setClickable(false);
-		}else isConfigExistent = true;
+			gallery_button.setEnabled(false);
+		}else{
+			isConfigExistent = true;
+			if(StaticObj.KEY != null) chachedMemTv.setText("Chave em cache.");
+			else{
+				Intent intent = new Intent(context, YapeaAuthActivity.class);
+                startActivityForResult(intent, 0);
+			}
+		}
 		
 		config_button.setOnClickListener(new OnClickListener() {
 			
@@ -45,9 +61,19 @@ public class YapeaMainActivity extends Activity {
 			public void onClick(View v) {
 				
 				Intent intent = new Intent(v.getContext(), YapeaConfigActivity.class);
-				
 				intent.putExtra("isConfigExistent", isConfigExistent);
+                startActivityForResult(intent, 0);
 				
+			}
+		});
+		
+		gallery_button.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				
+				Intent intent = new Intent(v.getContext(), ImageListActivity.class);
+				intent.putExtra("isConfigExistent", isConfigExistent);
                 startActivityForResult(intent, 0);
 				
 			}

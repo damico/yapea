@@ -22,17 +22,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/cam_button"
+        android:layout_alignRight="@+id/cam_button"
         android:layout_below="@+id/cam_button"
-        android:layout_marginTop="47dp"
         android:text="Galeria" />
 
     <Button
         android:id="@+id/config_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/gallery_button"
         android:layout_alignRight="@+id/gallery_button"
         android:layout_below="@+id/gallery_button"
-        android:layout_marginTop="50dp"
         android:text="Config" />
+
+    <TextView
+        android:id="@+id/mem_key_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:textColor="#FFCCCC" />
 
 </RelativeLayout>

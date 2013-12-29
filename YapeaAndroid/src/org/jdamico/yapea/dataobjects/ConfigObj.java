@@ -12,6 +12,7 @@ public class ConfigObj {
 		this.hashedKey = hashedKey;
 		this.isGpsEnabled = isGpsEnabled;
 	}
+	public ConfigObj() {}
 	public String getEncAlgo() {
 		return encAlgo;
 	}
