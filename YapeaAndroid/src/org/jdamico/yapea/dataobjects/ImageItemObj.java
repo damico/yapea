@@ -1,6 +1,6 @@
-package org.jdamico.yapea.commons;
+package org.jdamico.yapea.dataobjects;
 
-public class ImageItem {
+public class ImageItemObj {
 	
 	private String imageName = null;
 	private String imageId = null;
@@ -21,7 +21,7 @@ public class ImageItem {
 		this.imageId = imageId;
 	}
 
-	public ImageItem(String imageName, String imageId) {
+	public ImageItemObj(String imageName, String imageId) {
 		super();
 		this.imageName = imageName;
 		this.imageId = imageId;

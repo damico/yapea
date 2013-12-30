@@ -2,8 +2,12 @@ package org.jdamico.yapea.commons;
 
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.text.Format;
 import java.text.SimpleDateFormat;
@@ -22,6 +26,8 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Environment;
 import android.telephony.TelephonyManager;
@@ -263,4 +269,81 @@ public class Utils {
 		return stime;
 	}
 
+	public byte[] getBytesFromFile(File file) throws YapeaException {
+		InputStream is = null;
+
+		long length = file.length();
+
+		if (length > Integer.MAX_VALUE) {
+			throw new YapeaException(AppMessages.getInstance().getMessage("Utils.getBytesFromFile.fileTooLArge"));
+		}
+
+		byte[] bytes = new byte[(int)length];
+
+		int offset = 0;
+		int numRead = 0;
+		try {
+			is = new FileInputStream(file);
+			while (offset < bytes.length && (numRead=is.read(bytes, offset, bytes.length-offset)) >= 0) {
+				offset += numRead;
+			}
+		} catch (IOException e) {
+			throw new YapeaException(e);
+		}finally{
+			if(null != is) try { is.close(); } catch (IOException e) { throw new YapeaException(e); }
+		}
+
+		if (offset < bytes.length) {
+			throw new YapeaException(new IOException("Could not completely read file "+file.getName()));
+		}
+
+		return bytes;
+	}
+	
+	public void byteArrayToFile(byte[] bytes, String strFilePath) throws YapeaException{
+		FileOutputStream fos = null;
+		try {
+			fos = new FileOutputStream(strFilePath);
+			fos.write(bytes);
+			
+		} catch (FileNotFoundException e) {
+			throw new YapeaException(e);
+		} catch (IOException e) {
+			throw new YapeaException(e);
+		} finally {
+			if(null!=fos)
+				try {
+					fos.close();
+				} catch (IOException e) {
+					throw new YapeaException(e);
+				}
+		}
+	}
+	
+	public Bitmap byteArrayToBitmap(byte[] source){
+		
+		return BitmapFactory.decodeByteArray(source , 0, source.length);
+		
+	}
+
+	public void dumpÁpp(Context context) {
+		
+		String yapeaDir = getYapeaImageDir();
+
+		File imageDir = new File(yapeaDir);
+
+		if(imageDir.exists()){
+
+			String[] contents = imageDir.list();
+			for (int i = 0; i < contents.length; i++) {
+				File f = new File(yapeaDir+contents[i]);
+				f.delete();
+			}
+			imageDir.delete();
+		}
+		
+		File file = new File(context.getFilesDir(), Constants.CONFIG_FILE);
+		file.delete();
+		
+	}
 }

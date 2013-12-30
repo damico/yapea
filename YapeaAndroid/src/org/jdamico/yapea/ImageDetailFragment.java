@@ -6,8 +6,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.jdamico.yapea.commons.Constants;
-import org.jdamico.yapea.commons.ImageItem;
+import org.jdamico.yapea.commons.StaticObj;
 import org.jdamico.yapea.commons.Utils;
+import org.jdamico.yapea.commons.YapeaException;
+import org.jdamico.yapea.crypto.CryptoUtils;
+import org.jdamico.yapea.dataobjects.ImageItemObj;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -33,7 +36,7 @@ public class ImageDetailFragment extends Fragment {
 	/**
 	 * The dummy content this fragment is presenting.
 	 */
-	private ImageItem mItem;
+	private ImageItemObj mItem;
 
 	/**
 	 * Mandatory empty constructor for the fragment manager to instantiate the
@@ -46,7 +49,7 @@ public class ImageDetailFragment extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		Map<String, ImageItem> ITEM_MAP = new HashMap<String, ImageItem>();
+		Map<String, ImageItemObj> ITEM_MAP = new HashMap<String, ImageItemObj>();
 		
 		String yapeaDir = Utils.getInstance().getYapeaImageDir();
 		
@@ -56,7 +59,7 @@ public class ImageDetailFragment extends Fragment {
 			
 			String[] contents = imageDir.list();
 			for (int i = 0; i < contents.length; i++) {
-				ITEM_MAP.put(String.valueOf(i+1), new ImageItem(contents[i], String.valueOf(i+1)));
+				ITEM_MAP.put(String.valueOf(i+1), new ImageItemObj(contents[i], String.valueOf(i+1)));
 			}
 			
 		} //TODO add exception
@@ -92,9 +95,20 @@ public class ImageDetailFragment extends Fragment {
 				e.printStackTrace();
 			}       
 
-			Uri outputFileUri = Uri.fromFile(newfile);
+
+			try {
+				byte[] cipherContent = Utils.getInstance().getBytesFromFile(newfile);
+				byte[] plainContent = CryptoUtils.getInstance().dec(rootView.getContext(), StaticObj.KEY, cipherContent, Utils.getInstance().getConfigFile(rootView.getContext()).getEncAlgo());
+				((ImageView) rootView.findViewById(R.id.image_detail)).setImageBitmap(Utils.getInstance().byteArrayToBitmap(plainContent));
+			} catch (YapeaException e) {
+				e.printStackTrace();
+			}
 			
-			((ImageView) rootView.findViewById(R.id.image_detail)).setImageURI(outputFileUri);
+			
+			
+			
+			//((ImageView) rootView.findViewById(R.id.image_detail)).setImageURI(outputFileUri);
+			
 		}
 
 		return rootView;

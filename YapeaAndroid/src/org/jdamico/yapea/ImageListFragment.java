@@ -4,8 +4,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jdamico.yapea.commons.ImageItem;
 import org.jdamico.yapea.commons.Utils;
+import org.jdamico.yapea.dataobjects.ImageItemObj;
 
 
 import android.app.Activity;
@@ -32,7 +32,7 @@ public class ImageListFragment extends ListFragment {
 	 */
 	private static final String STATE_ACTIVATED_POSITION = "activated_position";
 	
-	public List<ImageItem> ITEMS = new ArrayList<ImageItem>();
+	public List<ImageItemObj> ITEMS = new ArrayList<ImageItemObj>();
 
 	/**
 	 * The fragment's current callback object, which is notified of list item
@@ -88,12 +88,12 @@ public class ImageListFragment extends ListFragment {
 			
 			String[] contents = imageDir.list();
 			for (int i = 0; i < contents.length; i++) {
-				ITEMS.add(new ImageItem(contents[i], String.valueOf(i+1)));
+				ITEMS.add(new ImageItemObj(contents[i], String.valueOf(i+1)));
 			}
 			
 		} //TODO add exception
 		
-		setListAdapter(new ArrayAdapter<ImageItem>(getActivity(),
+		setListAdapter(new ArrayAdapter<ImageItemObj>(getActivity(),
 				android.R.layout.simple_list_item_activated_1,
 				android.R.id.text1, ITEMS));
 	}

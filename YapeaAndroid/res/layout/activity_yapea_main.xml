@@ -8,23 +8,22 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".YapeaMainActivity" >
 
+    <TextView
+        android:id="@+id/mem_key_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:textColor="#FFCCCC" />
+
     <Button
         android:id="@+id/cam_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="24dp"
         android:text="Camera" />
-
-    <Button
-        android:id="@+id/gallery_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/cam_button"
-        android:layout_alignRight="@+id/cam_button"
-        android:layout_below="@+id/cam_button"
-        android:text="Galeria" />
 
     <Button
         android:id="@+id/config_button"
@@ -33,14 +32,17 @@
         android:layout_alignLeft="@+id/gallery_button"
         android:layout_alignRight="@+id/gallery_button"
         android:layout_below="@+id/gallery_button"
+        android:layout_marginTop="30dp"
         android:text="Config" />
 
-    <TextView
-        android:id="@+id/mem_key_textView"
+    <Button
+        android:id="@+id/gallery_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:textColor="#FFCCCC" />
+        android:layout_alignLeft="@+id/cam_button"
+        android:layout_alignRight="@+id/cam_button"
+        android:layout_below="@+id/cam_button"
+        android:layout_marginTop="37dp"
+        android:text="Galeria" />
 
 </RelativeLayout>

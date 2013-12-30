@@ -6,10 +6,14 @@ import java.io.IOException;
 import org.jdamico.yapea.commons.Constants;
 import org.jdamico.yapea.commons.Utils;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
 
 
 public class ActivityHelper {
@@ -27,9 +31,9 @@ public class ActivityHelper {
 
 		String yapeaDir = Utils.getInstance().getYapeaImageDir();
 		String file = yapeaDir+Utils.getInstance().getCurrentDateTimeFormated(Constants.TIMESTAMP_FORMAT)+".jpg";
-		
-		
-		
+
+
+
 		File newfile = new File(file);
 		try {
 			newfile.createNewFile();
@@ -45,5 +49,7 @@ public class ActivityHelper {
 		return cameraIntent;
 
 	}
+
+
 
 }

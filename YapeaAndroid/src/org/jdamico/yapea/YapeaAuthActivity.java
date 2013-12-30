@@ -1,5 +1,6 @@
 package org.jdamico.yapea;
 
+import org.jdamico.yapea.commons.AppMessages;
 import org.jdamico.yapea.commons.StaticObj;
 import org.jdamico.yapea.commons.Utils;
 
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class YapeaAuthActivity extends Activity {
 	
@@ -35,7 +37,7 @@ public class YapeaAuthActivity extends Activity {
 					StaticObj.KEY = keyTv.getText().toString();
 					Intent intent = new Intent(v.getContext(), YapeaMainActivity.class);
 	                startActivityForResult(intent, 0);
-				}
+				}else Toast.makeText(getApplicationContext(), AppMessages.getInstance().getMessage("YapeaAuthActivity.onCreate.WrongKey"), Toast.LENGTH_LONG).show();
 				
 			}
 		});
