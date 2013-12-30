@@ -1,5 +1,6 @@
 package org.jdamico.yapea;
 
+import org.jdamico.yapea.commons.Constants;
 import org.jdamico.yapea.commons.StaticObj;
 import org.jdamico.yapea.commons.Utils;
 import org.jdamico.yapea.commons.YapeaException;
@@ -9,6 +10,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -53,6 +55,17 @@ public class YapeaMainActivity extends Activity {
 				Intent intent = new Intent(context, YapeaAuthActivity.class);
                 startActivityForResult(intent, 0);
 			}
+			
+			cam_button.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					
+					Intent cameraIntent = ActivityHelper.getInstance().takePicture(v);
+					startActivityForResult(cameraIntent, Constants.TAKE_PHOTO_CODE);
+					
+				}
+			});
 		}
 		
 		config_button.setOnClickListener(new OnClickListener() {
@@ -86,6 +99,17 @@ public class YapeaMainActivity extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.yapea_main, menu);
 		return true;
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+	    super.onActivityResult(requestCode, resultCode, data);
+
+	    if (requestCode == Constants.TAKE_PHOTO_CODE && resultCode == RESULT_OK) {
+	        Log.d("CameraDemo", "Pic saved");
+
+
+	    }
 	}
 
 }

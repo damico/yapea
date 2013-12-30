@@ -5,6 +5,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.text.Format;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -20,6 +23,7 @@ import org.xml.sax.SAXException;
 
 import android.content.Context;
 import android.os.Build;
+import android.os.Environment;
 import android.telephony.TelephonyManager;
 
 public class Utils {
@@ -246,6 +250,17 @@ public class Utils {
 			if(null != fw) try { fw.close(); } catch (IOException e) { throw new YapeaException(AppMessages.getInstance().getMessage("Utils.writeTextToFile.failToWriteFile"), e); }
 			if(null != out) try { out.close(); } catch (IOException e) { throw new YapeaException(AppMessages.getInstance().getMessage("Utils.writeTextToFile.failToWriteFile"), e); }
 		}
+	}
+
+	public String getYapeaImageDir() {
+		return Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/.yapea/"; 
+	}
+	
+	public String getCurrentDateTimeFormated(String format){
+		Date date = new Date();
+		Format formatter = new SimpleDateFormat(format);
+		String stime = formatter.format(date);
+		return stime;
 	}
 
 }

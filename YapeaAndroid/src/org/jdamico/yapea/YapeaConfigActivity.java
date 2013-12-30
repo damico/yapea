@@ -1,5 +1,7 @@
 package org.jdamico.yapea;
 
+import java.io.File;
+
 import org.jdamico.yapea.commons.StaticObj;
 import org.jdamico.yapea.commons.Utils;
 import org.jdamico.yapea.commons.YapeaException;
@@ -7,6 +9,7 @@ import org.jdamico.yapea.commons.YapeaException;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -63,6 +66,10 @@ public class YapeaConfigActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
+				
+				String yapeaDir = Utils.getInstance().getYapeaImageDir();
+		        File dir = new File(yapeaDir); 
+		        if(dir !=null && !dir.exists()) dir.mkdirs();
 				
 				oldPasswd = oldPasswdTv.getText().toString();
 				newPasswd_a = newPasswd_aTv.getText().toString();

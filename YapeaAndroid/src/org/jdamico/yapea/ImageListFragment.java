@@ -1,13 +1,19 @@
 package org.jdamico.yapea;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.jdamico.yapea.commons.ImageItem;
+import org.jdamico.yapea.commons.Utils;
+
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-
-import org.jdamico.yapea.dummy.DummyContent;
 
 /**
  * A list fragment representing a list of Images. This fragment also supports
@@ -25,6 +31,8 @@ public class ImageListFragment extends ListFragment {
 	 * activated item position. Only used on tablets.
 	 */
 	private static final String STATE_ACTIVATED_POSITION = "activated_position";
+	
+	public List<ImageItem> ITEMS = new ArrayList<ImageItem>();
 
 	/**
 	 * The fragment's current callback object, which is notified of list item
@@ -70,10 +78,24 @@ public class ImageListFragment extends ListFragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		// TODO: replace with a real list adapter.
-		setListAdapter(new ArrayAdapter<DummyContent.DummyItem>(getActivity(),
+		
+		
+		String yapeaDir = Utils.getInstance().getYapeaImageDir();
+		
+		File imageDir = new File(yapeaDir);
+		
+		if(imageDir.exists()){
+			
+			String[] contents = imageDir.list();
+			for (int i = 0; i < contents.length; i++) {
+				ITEMS.add(new ImageItem(contents[i], String.valueOf(i+1)));
+			}
+			
+		} //TODO add exception
+		
+		setListAdapter(new ArrayAdapter<ImageItem>(getActivity(),
 				android.R.layout.simple_list_item_activated_1,
-				android.R.id.text1, DummyContent.ITEMS));
+				android.R.id.text1, ITEMS));
 	}
 
 	@Override
@@ -116,7 +138,7 @@ public class ImageListFragment extends ListFragment {
 
 		// Notify the active callbacks interface (the activity, if the
 		// fragment is attached to one) that an item has been selected.
-		mCallbacks.onItemSelected(DummyContent.ITEMS.get(position).id);
+		mCallbacks.onItemSelected(ITEMS.get(position).getImageId());
 	}
 
 	@Override
