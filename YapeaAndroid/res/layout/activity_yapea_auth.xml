@@ -9,7 +9,7 @@
     tools:context=".YapeaAuthActivity" >
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/key_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -23,8 +23,8 @@
         android:id="@+id/key_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_below="@+id/textView1"
+        android:layout_alignLeft="@+id/key_textView"
+        android:layout_below="@+id/key_textView"
         android:ems="10"
         android:inputType="textPassword" >
 

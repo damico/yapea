@@ -98,7 +98,7 @@ public class ImageDetailFragment extends Fragment {
 
 			try {
 				byte[] cipherContent = Utils.getInstance().getBytesFromFile(newfile);
-				byte[] plainContent = CryptoUtils.getInstance().dec(rootView.getContext(), StaticObj.KEY, cipherContent, Utils.getInstance().getConfigFile(rootView.getContext()).getEncAlgo());
+				byte[] plainContent = CryptoUtils.getInstance().dec(rootView.getContext(), CryptoUtils.getInstance().retrieveKeyFromCache(rootView.getContext()), cipherContent, Utils.getInstance().getConfigFile(rootView.getContext()).getEncAlgo());
 				((ImageView) rootView.findViewById(R.id.image_detail)).setImageBitmap(Utils.getInstance().byteArrayToBitmap(plainContent));
 			} catch (YapeaException e) {
 				e.printStackTrace();

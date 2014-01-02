@@ -16,33 +16,47 @@
         android:layout_centerHorizontal="true"
         android:textColor="#FFCCCC" />
 
-    <Button
-        android:id="@+id/cam_button"
+    <LinearLayout
+        android:id="@+id/linearLayout1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="24dp"
-        android:text="Camera" />
+        android:orientation="vertical" >
 
-    <Button
-        android:id="@+id/config_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/gallery_button"
-        android:layout_alignRight="@+id/gallery_button"
-        android:layout_below="@+id/gallery_button"
-        android:layout_marginTop="30dp"
-        android:text="Config" />
+        <Button
+            android:id="@+id/cam_button"
+            style="@style/ButtonText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_weight="5"
+            android:background="@layout/bluebutton"
+            android:text="Camera" />
 
-    <Button
-        android:id="@+id/gallery_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/cam_button"
-        android:layout_alignRight="@+id/cam_button"
-        android:layout_below="@+id/cam_button"
-        android:layout_marginTop="37dp"
-        android:text="Galeria" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="30dp" >
+
+            <Button
+                android:id="@+id/gallery_button"
+                style="@style/ButtonText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.40"
+                android:background="@layout/bluebutton"
+                android:text="Galeria" />
+
+            <Button
+                android:id="@+id/config_button"
+                style="@style/ButtonText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@layout/bluebutton"
+                android:text="Config" />
+        </LinearLayout>
+    </LinearLayout>
 
 </RelativeLayout>

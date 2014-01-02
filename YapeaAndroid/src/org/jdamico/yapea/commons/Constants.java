@@ -11,5 +11,7 @@ public interface Constants {
 	public static final int PBKDF2_KEY_LENGTH = 64;
 	public static final int TAKE_PHOTO_CODE = 0;
 	public static final String TIMESTAMP_FORMAT = "yyyyMMMdd_HH_mm_ss";
+	public static final String XML_CONFIG_KEY_PANICPASSWD_ATTRIB = "panicPasswd";
+	public static final String XML_CONFIG_KEY_PANICNUMBER_ATTRIB = "panicNumber";
 
 }

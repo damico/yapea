@@ -1,10 +1,8 @@
-package org.jdamico.yapea;
+package org.jdamico.yapea.commons;
 
 import java.io.File;
 import java.io.IOException;
 
-import org.jdamico.yapea.commons.Constants;
-import org.jdamico.yapea.commons.Utils;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;

@@ -9,12 +9,15 @@ package org.jdamico.yapea;
 
 public final class R {
     public static final class array {
-        public static final int pref_example_list_titles=0x7f070000;
-        public static final int pref_example_list_values=0x7f070001;
-        public static final int pref_sync_frequency_titles=0x7f070002;
-        public static final int pref_sync_frequency_values=0x7f070003;
+        public static final int pref_example_list_titles=0x7f080000;
+        public static final int pref_example_list_values=0x7f080001;
+        public static final int pref_sync_frequency_titles=0x7f080002;
+        public static final int pref_sync_frequency_values=0x7f080003;
     }
     public static final class attr {
+    }
+    public static final class color {
+        public static final int text_color=0x7f090000;
     }
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 
@@ -28,31 +31,43 @@ public final class R {
     }
     public static final class drawable {
         public static final int ic_launcher=0x7f020000;
+        public static final int tix11logo=0x7f020001;
     }
     public static final class id {
-        public static final int ScrollView01=0x7f0a0005;
-        public static final int action_settings=0x7f0a0016;
-        public static final int aes_radio=0x7f0a000c;
-        public static final int algoRadioGrp=0x7f0a0008;
-        public static final int auth_button=0x7f0a0004;
-        public static final int blow_fish_radio=0x7f0a000d;
-        public static final int cam_button=0x7f0a0012;
-        public static final int config_button=0x7f0a0013;
-        public static final int gallery_button=0x7f0a0014;
-        public static final int image_detail=0x7f0a0015;
-        public static final int image_detail_container=0x7f0a0000;
-        public static final int image_list=0x7f0a0001;
-        public static final int key_text=0x7f0a0003;
-        public static final int mem_key_textView=0x7f0a0007;
-        public static final int new_pass_txt_a=0x7f0a000a;
-        public static final int new_pass_txt_b=0x7f0a000b;
-        public static final int old_pass_txt=0x7f0a0010;
-        public static final int reset_button=0x7f0a000f;
-        public static final int save_config_button=0x7f0a000e;
-        public static final int textView1=0x7f0a0002;
-        public static final int textView2=0x7f0a0006;
-        public static final int textView3=0x7f0a0011;
-        public static final int textView4=0x7f0a0009;
+        public static final int ScrollView01=0x7f0b0002;
+        public static final int action_settings=0x7f0b0021;
+        public static final int aes_radio=0x7f0b0013;
+        public static final int algoRadioGrp=0x7f0b000f;
+        public static final int auth_button=0x7f0b000c;
+        public static final int author=0x7f0b0006;
+        public static final int back_button=0x7f0b0009;
+        public static final int blow_fish_radio=0x7f0b0014;
+        public static final int cam_button=0x7f0b001d;
+        public static final int clear_cache_button=0x7f0b0018;
+        public static final int config_button=0x7f0b001f;
+        public static final int gallery_button=0x7f0b001e;
+        public static final int imageView1=0x7f0b0007;
+        public static final int image_detail=0x7f0b0020;
+        public static final int image_detail_container=0x7f0b0000;
+        public static final int image_list=0x7f0b0001;
+        public static final int key_text=0x7f0b000b;
+        public static final int key_textView=0x7f0b000a;
+        public static final int lic=0x7f0b0004;
+        public static final int linearLayout1=0x7f0b001c;
+        public static final int mem_key_textView=0x7f0b000e;
+        public static final int newP2tV=0x7f0b0010;
+        public static final int newPtV=0x7f0b0017;
+        public static final int new_pass_txt_a=0x7f0b0011;
+        public static final int new_pass_txt_b=0x7f0b0012;
+        public static final int oldPtV=0x7f0b000d;
+        public static final int old_pass_txt=0x7f0b0016;
+        public static final int panicNumber=0x7f0b001b;
+        public static final int panicPasswdEt=0x7f0b0019;
+        public static final int panicTv=0x7f0b0008;
+        public static final int reset_button=0x7f0b0015;
+        public static final int save_config_button=0x7f0b001a;
+        public static final int source=0x7f0b0005;
+        public static final int version=0x7f0b0003;
     }
     public static final class layout {
         public static final int activity_image_detail=0x7f030000;
@@ -73,42 +88,46 @@ public final class R {
          */
         public static final int activity_image_list=0x7f030001;
         public static final int activity_image_twopane=0x7f030002;
-        public static final int activity_yapea_auth=0x7f030003;
-        public static final int activity_yapea_config=0x7f030004;
-        public static final int activity_yapea_main=0x7f030005;
-        public static final int fragment_image_detail=0x7f030006;
+        public static final int activity_yapea_about=0x7f030003;
+        public static final int activity_yapea_auth=0x7f030004;
+        public static final int activity_yapea_config=0x7f030005;
+        public static final int activity_yapea_main=0x7f030006;
+        public static final int bluebutton=0x7f030007;
+        public static final int fragment_image_detail=0x7f030008;
     }
     public static final class menu {
-        public static final int yapea_auth=0x7f090000;
-        public static final int yapea_config=0x7f090001;
-        public static final int yapea_main=0x7f090002;
+        public static final int yapea_about=0x7f0a0000;
+        public static final int yapea_auth=0x7f0a0001;
+        public static final int yapea_config=0x7f0a0002;
+        public static final int yapea_main=0x7f0a0003;
     }
     public static final class string {
         public static final int action_settings=0x7f060001;
         public static final int app_name=0x7f060000;
         public static final int hello_world=0x7f060002;
-        public static final int pref_default_display_name=0x7f06000c;
-        public static final int pref_description_social_recommendations=0x7f06000a;
+        public static final int pref_default_display_name=0x7f06000d;
+        public static final int pref_description_social_recommendations=0x7f06000b;
         /**  Example settings for Data & Sync 
          */
-        public static final int pref_header_data_sync=0x7f06000e;
+        public static final int pref_header_data_sync=0x7f06000f;
         /**  Strings related to Settings 
  Example General settings 
          */
-        public static final int pref_header_general=0x7f060008;
+        public static final int pref_header_general=0x7f060009;
         /**  Example settings for Notifications 
          */
-        public static final int pref_header_notifications=0x7f060011;
-        public static final int pref_ringtone_silent=0x7f060014;
-        public static final int pref_title_add_friends_to_messages=0x7f06000d;
-        public static final int pref_title_display_name=0x7f06000b;
-        public static final int pref_title_new_message_notifications=0x7f060012;
-        public static final int pref_title_ringtone=0x7f060013;
-        public static final int pref_title_social_recommendations=0x7f060009;
-        public static final int pref_title_sync_frequency=0x7f06000f;
-        public static final int pref_title_system_sync_settings=0x7f060010;
-        public static final int pref_title_vibrate=0x7f060015;
-        public static final int title_activity_config=0x7f060007;
+        public static final int pref_header_notifications=0x7f060012;
+        public static final int pref_ringtone_silent=0x7f060015;
+        public static final int pref_title_add_friends_to_messages=0x7f06000e;
+        public static final int pref_title_display_name=0x7f06000c;
+        public static final int pref_title_new_message_notifications=0x7f060013;
+        public static final int pref_title_ringtone=0x7f060014;
+        public static final int pref_title_social_recommendations=0x7f06000a;
+        public static final int pref_title_sync_frequency=0x7f060010;
+        public static final int pref_title_system_sync_settings=0x7f060011;
+        public static final int pref_title_vibrate=0x7f060016;
+        public static final int title_activity_config=0x7f060008;
+        public static final int title_activity_yapea_about=0x7f060007;
         public static final int title_activity_yapea_auth=0x7f060004;
         public static final int title_activity_yapea_config=0x7f060003;
         public static final int title_image_detail=0x7f060006;
@@ -136,11 +155,12 @@ public final class R {
     
  API 14 theme customizations can go here. 
          */
-        public static final int AppBaseTheme=0x7f080000;
+        public static final int AppBaseTheme=0x7f070001;
         /**  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
-        public static final int AppTheme=0x7f080001;
+        public static final int AppTheme=0x7f070002;
+        public static final int ButtonText=0x7f070000;
     }
     public static final class xml {
         public static final int pref_data_sync=0x7f040000;

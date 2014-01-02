@@ -9,6 +9,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -77,8 +79,14 @@ public class Utils {
 			String hash = (String) getDomTagAttribute(doc, Constants.XML_CONFIG_KEY_TAG, Constants.XML_CONFIG_KEY_HASH_ATTRIB);
 			String algo = (String) getDomTagAttribute(doc, Constants.XML_CONFIG_ALGO_TAG, Constants.XML_CONFIG_ALGO_TYPE_ATTRIB);
 
-			configObj = new ConfigObj(algo, hash, false);
+			String panicPassword = (String) getDomTagAttribute(doc, Constants.XML_CONFIG_KEY_TAG, Constants.XML_CONFIG_KEY_PANICPASSWD_ATTRIB);
+			int panicNumber = Integer.parseInt( (String) getDomTagAttribute(doc, Constants.XML_CONFIG_KEY_TAG, Constants.XML_CONFIG_KEY_PANICNUMBER_ATTRIB) );
 
+
+			configObj = new ConfigObj(algo, hash, false, panicPassword, panicNumber);
+
+		} catch (NumberFormatException e) {
+			throw new YapeaException(e);
 		} catch (ParserConfigurationException e) {
 			throw new YapeaException(e);
 		} catch (SAXException e) {
@@ -95,7 +103,7 @@ public class Utils {
 		StringBuffer sb = new StringBuffer();
 		sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
 		sb.append("<"+Constants.XML_CONFIG_ROOT_TAG+">\n");
-		sb.append("<"+Constants.XML_CONFIG_KEY_TAG+" "+Constants.XML_CONFIG_KEY_HASH_ATTRIB+"=\""+configObj.getHashedKey()+"\"/>\n");
+		sb.append("<"+Constants.XML_CONFIG_KEY_TAG+" "+Constants.XML_CONFIG_KEY_HASH_ATTRIB+"=\""+configObj.getHashedKey()+"\" "+Constants.XML_CONFIG_KEY_PANICPASSWD_ATTRIB+"=\""+configObj.getPanicPassword()+"\" "+Constants.XML_CONFIG_KEY_PANICNUMBER_ATTRIB+"=\""+configObj.getPanicNumber()+"\"/>\n");
 		sb.append("<"+Constants.XML_CONFIG_ALGO_TAG+" "+Constants.XML_CONFIG_ALGO_TYPE_ATTRIB+"=\""+configObj.getEncAlgo()+"\"/>\n");
 		sb.append("</"+Constants.XML_CONFIG_ROOT_TAG+">\n");
 		writeTextToFile(file, sb.toString());
@@ -120,9 +128,9 @@ public class Utils {
 		return ret;
 	}
 
-	
+
 	public boolean isAuthenticated(Context context, String passwd) {
-		
+
 		boolean isAuthenticated = false;
 		String typedHash = null;
 		String storedHash = null;
@@ -130,19 +138,21 @@ public class Utils {
 			File file = new File(context.getFilesDir(), Constants.CONFIG_FILE);
 			try {
 				typedHash = byteArrayToHexString(CryptoUtils.getInstance().getKeyHash(context, passwd.toCharArray()));
+
 				storedHash = configFileToConfigObj(file).getHashedKey();
-			} catch (Exception e) {}
-			
+
+			} catch (Exception e) {e.printStackTrace();}
+
 			if(typedHash!=null && storedHash!=null && (typedHash.equals(storedHash)))isAuthenticated = true;
 		}
-		
+
 		return isAuthenticated;
 	}
-	
 
-	public void changeConfig(Context context, String oldPasswd, String newPasswd_a, String newPasswd_b, String algo) throws YapeaException {
-	
-		
+
+	public void changeConfig(Context context, String oldPasswd, String newPasswd_a, String newPasswd_b, String algo, String panicPassword, int panicNumber) throws YapeaException {
+
+
 		if(context!=null){ 
 
 			File file = new File(context.getFilesDir(), Constants.CONFIG_FILE);
@@ -159,8 +169,20 @@ public class Utils {
 						throw new YapeaException(AppMessages.getInstance().getMessage("Utils.createConfig.failedToTransformKeyHash"), e);
 					}
 
-					configObjToConfigFile(new ConfigObj(algo, hashedKey, false), file);
-					
+					if(panicPassword == null || panicPassword.length() == 0){
+						panicPassword = "null";
+						panicNumber = 0;
+					}else{
+						hash = CryptoUtils.getInstance().getKeyHash(context, panicPassword.toCharArray());
+						try {
+							panicPassword = byteArrayToHexString(hash);
+						} catch (UnsupportedEncodingException e) {
+							throw new YapeaException(AppMessages.getInstance().getMessage("Utils.createConfig.failedToTransformKeyHash"), e);
+						}
+					}
+
+					configObjToConfigFile(new ConfigObj(algo, hashedKey, false, panicPassword, panicNumber), file);
+
 				}else throw new YapeaException(AppMessages.getInstance().getMessage("Utils.changeConfig.diffPasswd"));
 
 			}else throw new YapeaException(AppMessages.getInstance().getMessage("Utils.changeConfig.wrongPasswd"));
@@ -169,7 +191,7 @@ public class Utils {
 
 	}
 
-	public void createConfig(Context context, String oldPasswd, String newPasswd_a, String newPasswd_b, String algo) throws YapeaException {
+	public void createConfig(Context context, String oldPasswd, String newPasswd_a, String newPasswd_b, String algo, String panicPassword, int panicNumber) throws YapeaException {
 		File file = new File(context.getFilesDir(), Constants.CONFIG_FILE);
 
 
@@ -185,13 +207,29 @@ public class Utils {
 				} catch (UnsupportedEncodingException e) {
 					throw new YapeaException(AppMessages.getInstance().getMessage("Utils.createConfig.failedToTransformKeyHash"), e);
 				}
-			}else throw new YapeaException(AppMessages.getInstance().getMessage("Utils.createConfig.diffNewPasswd"));
+
+				if(panicPassword == null || panicPassword.length() == 0){
+					panicPassword = "null";
+					panicNumber = 0;
+				}else{
+					hash = CryptoUtils.getInstance().getKeyHash(context, panicPassword.toCharArray());
+					try {
+						panicPassword = byteArrayToHexString(hash);
+					} catch (UnsupportedEncodingException e) {
+						throw new YapeaException(AppMessages.getInstance().getMessage("Utils.createConfig.failedToTransformKeyHash"), e);
+					}
+				}
+
+				configObj.setPanicPassword(panicPassword);
+				configObj.setPanicNumber(panicNumber);
+
+
+			}else throw new YapeaException(AppMessages.getInstance().getMessage("Utils.createConfig.diffPasswd"));
+
 
 			configObj.setEncAlgo(algo);	
 			configObjToConfigFile(configObj, file);
-
-
-		}else throw new YapeaException(AppMessages.getInstance().getMessage("Utils.createConfig.invalidInitialization"));
+		}
 
 
 
@@ -213,14 +251,14 @@ public class Utils {
 
 	public String getIMEI(Context context){
 		//<uses-permission android:name="android.permission.READ_PHONE_STATE" />
-		
+
 		String imei = null;
-		
+
 		try {
 			TelephonyManager mngr = (TelephonyManager) context.getSystemService(context.TELEPHONY_SERVICE); 
 			imei = mngr.getDeviceId();
 		} catch (Exception e) {}
-		
+
 		return imei;
 
 	}
@@ -261,7 +299,7 @@ public class Utils {
 	public String getYapeaImageDir() {
 		return Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/.yapea/"; 
 	}
-	
+
 	public String getCurrentDateTimeFormated(String format){
 		Date date = new Date();
 		Format formatter = new SimpleDateFormat(format);
@@ -299,13 +337,13 @@ public class Utils {
 
 		return bytes;
 	}
-	
+
 	public void byteArrayToFile(byte[] bytes, String strFilePath) throws YapeaException{
 		FileOutputStream fos = null;
 		try {
 			fos = new FileOutputStream(strFilePath);
 			fos.write(bytes);
-			
+
 		} catch (FileNotFoundException e) {
 			throw new YapeaException(e);
 		} catch (IOException e) {
@@ -319,15 +357,60 @@ public class Utils {
 				}
 		}
 	}
-	
+
 	public Bitmap byteArrayToBitmap(byte[] source){
-		
+
 		return BitmapFactory.decodeByteArray(source , 0, source.length);
-		
+
 	}
 
-	public void dumpÁpp(Context context) {
-		
+	public void dumpAppData(Context context) {
+
+		clearCache();
+
+		deleteAllPictures();
+
+		File file = new File(context.getFilesDir(), Constants.CONFIG_FILE);
+		file.delete();
+
+	}
+
+	public void clearCache(){
+		if(StaticObj.KEY != null) StaticObj.KEY = null;
+	}
+
+	public byte[] hexStringToByteArray(String s) {
+		int len = s.length();
+		byte[] data = new byte[len / 2];
+		for (int i = 0; i < len; i += 2) data[i / 2] = (byte) ((Character.digit(s.charAt(i), 16) << 4) + Character.digit(s.charAt(i+1), 16));
+		return data;
+	}
+
+	public int isPanicAuthenticated(Context context, String passwd, int countPanic) {
+		int ret = 0;
+		String typedHash = null;
+		String storedHash = null;
+		ConfigObj cfg = null;
+		if(context!=null){ 
+			File file = new File(context.getFilesDir(), Constants.CONFIG_FILE);
+			
+			try {
+				cfg = configFileToConfigObj(file);
+				typedHash = byteArrayToHexString(CryptoUtils.getInstance().getKeyHash(context, passwd.toCharArray()));
+
+				storedHash = cfg.getPanicPassword();
+
+			} catch (Exception e) {e.printStackTrace();}
+
+			if(typedHash!=null && storedHash!=null && (typedHash.equals(storedHash))){
+				ret = 1;
+				if(countPanic+1 == cfg.getPanicNumber()) deleteAllPictures();
+			}
+		}
+		return ret;
+	}
+
+	private void deleteAllPictures() {
 		String yapeaDir = getYapeaImageDir();
 
 		File imageDir = new File(yapeaDir);
@@ -341,9 +424,6 @@ public class Utils {
 			}
 			imageDir.delete();
 		}
-		
-		File file = new File(context.getFilesDir(), Constants.CONFIG_FILE);
-		file.delete();
 		
 	}
 }

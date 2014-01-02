@@ -5,10 +5,8 @@
     android:layout_height="fill_parent" >
 
     <RelativeLayout
-        
-        
         android:layout_width="match_parent"
-        android:layout_height="392dp"
+        android:layout_height="505dp"
         android:paddingBottom="@dimen/activity_vertical_margin"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
@@ -16,7 +14,7 @@
         tools:context=".YapeaConfigActivity" >
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/oldPtV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/mem_key_textView"
@@ -25,7 +23,7 @@
             android:text="Senha antiga:" />
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/newP2tV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/new_pass_txt_a"
@@ -37,8 +35,8 @@
             android:id="@+id/new_pass_txt_b"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/textView4"
-            android:layout_below="@+id/textView4"
+            android:layout_alignLeft="@+id/newP2tV"
+            android:layout_below="@+id/newP2tV"
             android:ems="10"
             android:inputType="textPassword" />
 
@@ -54,7 +52,7 @@
             android:id="@+id/algoRadioGrp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/textView2"
+            android:layout_alignLeft="@+id/oldPtV"
             android:layout_below="@+id/mem_key_textView"
             android:layout_marginTop="13dp" >
 
@@ -73,14 +71,6 @@
         </RadioGroup>
 
         <Button
-            android:id="@+id/save_config_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:text="Salvar" />
-
-        <Button
             android:id="@+id/reset_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -92,8 +82,8 @@
             android:id="@+id/old_pass_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/textView2"
-            android:layout_below="@+id/textView2"
+            android:layout_alignLeft="@+id/oldPtV"
+            android:layout_below="@+id/oldPtV"
             android:ems="10"
             android:inputType="textPassword" />
 
@@ -101,20 +91,68 @@
             android:id="@+id/new_pass_txt_a"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/textView3"
+            android:layout_alignLeft="@+id/newPtV"
             android:layout_below="@+id/old_pass_txt"
             android:layout_marginTop="42dp"
             android:ems="10"
             android:inputType="textPassword" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/newPtV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/old_pass_txt"
             android:layout_below="@+id/old_pass_txt"
             android:layout_marginTop="28dp"
             android:text="Senha nova:" />
+
+        <Button
+            android:id="@+id/clear_cache_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/reset_button"
+            android:layout_marginTop="14dp"
+            android:text="Limpar cache" />
+
+        <TextView
+            android:id="@+id/panicTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/new_pass_txt_b"
+            android:layout_below="@+id/new_pass_txt_b"
+            android:layout_marginTop="27dp"
+            android:text="Senha de Pânico" />
+
+        <EditText
+            android:id="@+id/panicPasswdEt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/panicTv"
+            android:ems="10"
+            android:inputType="textPassword" >
+
+            
+        </EditText>
+
+         <Button
+             android:id="@+id/save_config_button"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_alignParentBottom="true"
+             android:layout_alignRight="@+id/newPtV"
+             android:text="Salvar" />
+
+         <NumberPicker
+             android:id="@+id/panicNumber"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_alignTop="@+id/panicTv"
+             android:layout_marginLeft="17dp"
+             android:layout_toRightOf="@+id/panicPasswdEt"
+             android:minHeight="10dp"
+             android:minWidth="10dp" />
 
     </RelativeLayout>
 
