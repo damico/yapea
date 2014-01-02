@@ -5,21 +5,18 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.jdamico.yapea.commons.Constants;
-import org.jdamico.yapea.commons.StaticObj;
 import org.jdamico.yapea.commons.Utils;
 import org.jdamico.yapea.commons.YapeaException;
 import org.jdamico.yapea.crypto.CryptoUtils;
 import org.jdamico.yapea.dataobjects.ImageItemObj;
 
-import android.net.Uri;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 /**
  * A fragment representing a single Image detail screen. This fragment is either
@@ -99,7 +96,27 @@ public class ImageDetailFragment extends Fragment {
 			try {
 				byte[] cipherContent = Utils.getInstance().getBytesFromFile(newfile);
 				byte[] plainContent = CryptoUtils.getInstance().dec(rootView.getContext(), CryptoUtils.getInstance().retrieveKeyFromCache(rootView.getContext()), cipherContent, Utils.getInstance().getConfigFile(rootView.getContext()).getEncAlgo());
-				((ImageView) rootView.findViewById(R.id.image_detail)).setImageBitmap(Utils.getInstance().byteArrayToBitmap(plainContent));
+				
+				Bitmap bitmap = Utils.getInstance().byteArrayToBitmap(plainContent);
+				if(bitmap.getHeight() > 2048 || bitmap.getWidth() > 2048){
+					
+					int h = 0;
+					int w = 0;
+					int p = 0;
+					if(bitmap.getHeight() >= bitmap.getWidth()){
+						p = (bitmap.getWidth() * 100) / bitmap.getHeight();
+						h = 2048;
+						w = (h*p)/100;
+					}else{
+						p = (bitmap.getHeight() * 100) / bitmap.getWidth();
+						w = 2048;
+						h = (w*p)/100;
+					}
+					
+					bitmap = Bitmap.createScaledBitmap(bitmap, w, h, true);
+				}
+				
+				((ImageView) rootView.findViewById(R.id.image_detail)).setImageBitmap(bitmap);
 			} catch (YapeaException e) {
 				e.printStackTrace();
 			}
