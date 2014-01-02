@@ -26,15 +26,15 @@ The Initialization Vectors are generated based on unique data from the smartphon
 =====
 Encryption key used in Yapea:
 
-- Lenght: 256 bits
+- Length: 256 bits
 
-Generated throught key derivation (from user-defined password) with PBKF2 algorithm. The salt are generated based on unique data from the smartphone.
+Generated through key derivation (from user-defined password) with PBKF2 algorithm. The salt are generated based on unique data from the smartphone.
 The key is stored inside a configuration file, at smartphone file system. This file is used for password verification at first time of application use. After that the key is encripted and stored inside smartphone memory (cache). But at anytime the user can choose to delete the encrypted key from memory (Clear cache).
 
 =====
 Additional features:
 
-- Application reset: At anytime the user can choose to dump ALL aplication data, including encrypted images and configuration.
+- Application reset: At anytime the user can choose to dump ALL application data, including encrypted images and configuration.
 - Panic password: A password that can be used to delete all encrypted images. In a case where user is forced to give its key. (If you’re traveling overseas, across borders or anywhere you’re afraid your smartphone might be tampered with or examined). 
 - Languages: English and Portuguese
 
