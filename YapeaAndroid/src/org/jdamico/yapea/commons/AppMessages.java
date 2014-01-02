@@ -41,14 +41,14 @@ public class AppMessages {
 		ptMap.put("Utils.createConfig.failedToTransformKeyHash", "Falha ao transformar o hash da chave.");
 		ptMap.put("Utils.changeConfig.diffPasswd", "As senhas diferem!");
 		ptMap.put("Utils.changeConfig.wrongPasswd", "Senha incorreta!");
-		ptMap.put("Utils.changeConfig.nullContext", "O contexto da aplicaćão é nulo.");
+		ptMap.put("Utils.changeConfig.nullContext", "O contexto da aplicação é nulo.");
 		ptMap.put("Utils.writeTextToFile.failToWriteFile", "Erro ao escrever arquivo.");
 		ptMap.put("Utils.getBytesFromFile.fileTooLArge", "O arquivo é muito grande.");
 		ptMap.put("GLOBAL.back_button", "Voltar");
 		ptMap.put("GLOBAL.version", "Versão: 0.1b");
 		ptMap.put("GLOBAL.author", "Autor: Jose Damico <damico@tix11.com>");
 		ptMap.put("GLOBAL.source", "Código-fonte: http://github.com/damico");
-		ptMap.put("GLOBAL.lic", "Licenća: GPL v2");
+		ptMap.put("GLOBAL.lic", "Licença: GPL v2");
 		ptMap.put("GLOBAL.authButton", "Desbloquear");
 		ptMap.put("GLOBAL.key_textView", "Chave:");
 		ptMap.put("YapeaAuthActivity.onCreate.WrongKey", "Senha incorreta!");
@@ -59,7 +59,7 @@ public class AppMessages {
 		ptMap.put("GLOBAL.newP2tV", "Repita a nova senha:");
 		ptMap.put("GLOBAL.reset_button", "Reset");
 		ptMap.put("GLOBAL.save_config_button", "Salvar");
-		ptMap.put("YapeaConfigActivity.onCreate.dumpAppData", "Apagar todos os dados da aplicaćão?");
+		ptMap.put("YapeaConfigActivity.onCreate.dumpAppData", "Apagar todos os dados da aplicação?");
 		ptMap.put("GLOBAL.yes", "Sim");
 		ptMap.put("GLOBAL.no", "Não");
 		ptMap.put("GLOBAL.cam_button", "Camera");
